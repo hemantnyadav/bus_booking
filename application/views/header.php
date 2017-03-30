@@ -27,6 +27,32 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+	
+	  <!-- jQuery -->
+    <script src="<?PHP echo base_url()."/assets/"; ?>js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="<?PHP echo base_url()."/assets/"; ?>js/bootstrap.min.js"></script>
+	
+	<script src="<?PHP echo base_url()."/assets/"; ?>js/moment.js"></script>
+
+	<script src="<?PHP echo base_url()."/assets/"; ?>js/bootstrap-datetimepicker.js"></script>
+	<script type="text/javascript">
+            $(function () {
+                $('#datetimepicker1').datetimepicker(
+				{	
+					format: 'DD/MM/YYYY'
+				});
+            });
+    </script>
+
+    <!-- Script to Activate the Carousel -->
+    <script>
+    $('.carousel').carousel({
+        interval: 5000 //changes the speed
+    })
+    </script>
+	
 
 <style>
 				   	ul li{display:inline; padding:0px 20px 0px 20px;}

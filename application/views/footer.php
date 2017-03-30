@@ -25,31 +25,7 @@
     </footer>
 	<!-- jQuery -->
     
-    <!-- jQuery -->
-    <script src="<?PHP echo base_url()."/assets/"; ?>js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="<?PHP echo base_url()."/assets/"; ?>js/bootstrap.min.js"></script>
-	
-	<script src="<?PHP echo base_url()."/assets/"; ?>js/moment.js"></script>
-
-	<script src="<?PHP echo base_url()."/assets/"; ?>js/bootstrap-datetimepicker.js"></script>
-	<script type="text/javascript">
-            $(function () {
-                $('#datetimepicker1').datetimepicker(
-				{	
-					format: 'DD/MM/YYYY'
-				});
-            });
-    </script>
-
-    <!-- Script to Activate the Carousel -->
-    <script>
-    $('.carousel').carousel({
-        interval: 5000 //changes the speed
-    })
-    </script>
-	
+  
 </body>
 
 </html>
