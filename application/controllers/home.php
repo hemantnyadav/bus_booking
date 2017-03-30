@@ -7,11 +7,19 @@ class Home extends CI_Controller {
 		$this->load->model('home_model');
 		
 		$data['fromStations'] = $this->home_model->getFromStations();
-		
-		
-		$this->load->view('header' );
-		$this->load->view('home_view');
+	
+		$this->load->view('header');
+		$this->load->view('home_view',$data);
 		$this->load->view('footer');
+	}
+	public function populateToStations()
+	{
+		$this->load->model("home_model");
+		$fromStation = $_POST['fromStation'];
+		
+		$data["toStations"] = $this->home_model->getToStations($fromStation);
+	
+		echo json_encode($data["toStations"]);
 	}
 }
 

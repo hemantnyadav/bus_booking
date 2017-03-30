@@ -6,21 +6,27 @@
                 <div class="col-lg-12">
                    
 				   <div class="form-group col-lg-3">
-						<select class="form-control" name="from">
+				   <?PHP 
+				   		$attributes = array('name'=>'formAdd','id'=>'formAdd');
+						$hidden = array('is_submit'=>1);
+				   		echo form_open("/home",'',$attributes, $hidden); 
+					?>
+				   		<select class="form-control" name="from" id="from">
 							<option hidden >From</option>
 							
 							<?PHP
-								print_r($data['fromStations']);
-								foreach($fromStations->route_name as $fromStation){
+							foreach($fromStations as $fromStation){
 							?>
-							<option><?PHP echo $fromStation; ?></option>
+							<option>
+								<?PHP echo strtoupper($fromStation->route_station);?>
+							</option>
 							<? } ?>
 						</select>
                    </div>
 				   <div class="form-group col-lg-3">
-						<select class="form-control" name="to">
+						<select class="form-control" name="to" id="to">
 							<option hidden >To</option>
-							<option>1</option>
+							<option></option>
 						</select>
                    </div>
 				   <div class="form-group col-lg-3">
@@ -36,6 +42,7 @@
 
                                 <input type="submit" class="form-control" value="Book" />
                    </div>
+				  <?PHP echo form_close(); ?>
                 </div>
             </div>
         </div>
@@ -76,9 +83,29 @@
                 </div>
             </div>
         </div>
-
-      
-        
-
     </div>
     <!-- /.container -->
+	<script>
+	$("#from").change(function(){
+    
+	var fromStation = $(this).find(":selected").text();
+
+	
+    $.ajax({
+        url: 'home/populateToStations',
+        data: ({'fromStation': fromStation}),
+        dataType: 'json', 
+        type: "post",
+        success: function(data)
+		{		
+				$("#to").empty();
+				$.each(data, function () 
+				{	
+                	$("#to").append($("<option></option>").val(this['id']).html(this['route_station']));
+				});
+             //alert(data[0].id); 
+		}             
+    });
+	 return false;
+    });
+</script>
