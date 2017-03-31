@@ -1,56 +1,93 @@
 
     <div class="container">
 
+		<div class="row">
+            <div class="box">
+                <div class="col-lg-12">
+					<center><h5 style="color:#FF0000">AC Bus - Sleeper - [(Rajula-Badhada) To Ahemedabad : Rs. 320] &amp; [(Savarkundla-Dhasa)   To Ahemedabad : Rs. 270]</h5></center>
+					<center><h5 style="color:#006633">NonAC Bus - Sleeper - [(Vijapadi-Badhada) To Ahemedabad : Rs. 270] &amp; [(Savarkundla-Dhasa)   To Ahemedabad : Rs. 250]</h5></center>
+				</div>
+			</div>
+		</div>
+		<?PHP
+			$attributes = array('name'=>'fromto','id'=>'fromto');
+			$hidden 	= array('is_submit'=>1);
+			echo form_open("home/getListOfBus/",$attributes, $hidden); 
+		?>
           <div class="row">
             <div class="box">
                 <div class="col-lg-12">
                    
+				   
 				   <div class="form-group col-lg-3">
-				   <?PHP 
-				   		$attributes = array('name'=>'formAdd','id'=>'formAdd');
-						$hidden = array('is_submit'=>1);
-				   		echo form_open("/home",'',$attributes, $hidden); 
-					?>
-				   		<select class="form-control" name="from" id="from">
+				   		
+				   		<select class="form-control" name="fromStation" id="fromStation" >
 							<option hidden >From</option>
 							
 							<?PHP
 							foreach($fromStations as $fromStation){
 							?>
-							<option>
+							<option <?PHP if(isset($fromStationSelected)
+												&& 
+												strtoupper($fromStation->route_station)==$fromStationSelected) echo 'selected="selected"'; ?>>
 								<?PHP echo strtoupper($fromStation->route_station);?>
 							</option>
 							<? } ?>
 						</select>
                    </div>
 				   <div class="form-group col-lg-3">
-						<select class="form-control" name="to" id="to">
+						<select class="form-control" name="toStation" id="toStation">
+							<?PHP if(!isset($toStations))
+							{
+							?>								
 							<option hidden >To</option>
-							<option></option>
+							<?
+							}else
+							{
+								foreach($toStations as $row)
+								{
+								?>
+									<option><?PHP echo $row["route_station"];?></option>
+								<?PHP
+								}
+							}
+							?>
 						</select>
-                   </div>
-				   <div class="form-group col-lg-3">
+					</div>
+				   <div class="form-group col-lg-2">
 							<div class='input-group date' id='datetimepicker1'>
-							<input type='text' class="form-control" name="date" />
+							<input type='text' class="form-control" name="date" id="date" />
 							<span class="input-group-addon">
 								<span class="glyphicon glyphicon-calendar"></span>
 							</span>
 							
                			</div>
                    </div>
-				   <div class="form-group col-lg-3">
-
-                                <input type="submit" class="form-control" value="Book" />
+				   <div class="form-group col-lg-2">
+					   <select class="form-control" name="busType" id="busType" >
+					   		<option>
+								AC
+							</option>
+							<option>
+								Non-AC
+							</option>
+					   </select>
+					</div>
+				   <div class="form-group col-lg-2">
+                       <input type="button" class="form-control" value="Search Bus" id="submit_button" />
                    </div>
-				  <?PHP echo form_close(); ?>
+				  
                 </div>
             </div>
         </div>
-
+		<?PHP echo form_close(); ?>
+		
 		<div class="row">
             <div class="box">
                 <div class="col-lg-12 text-center">
                     <div id="carousel-example-generic" class="carousel slide">
+					
+						
                         <!-- Indicators -->
                         <ol class="carousel-indicators hidden-xs">
                             <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -78,7 +115,7 @@
                         <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
                             <span class="icon-next"></span>
                         </a>
-                    </div>
+					</div>
                     
                 </div>
             </div>
@@ -86,11 +123,53 @@
     </div>
     <!-- /.container -->
 	<script>
-	$("#from").change(function(){
+	var base_url = '<?php echo base_url(); ?>';
+	$(document).ready(function()
+	{
+		
+		
+		$("#fromStation").change(function()
+		{
+			$("#fromto").submit();
+		});
+		
+		$("#submit_button").click(function()
+		{
+			if ($('#date').val() == null  || $('#date').val() == "")
+			{
+				alert($('#date').val()+ "Please select date");
+				return false;
+			}
+			if ($('#toStation').val() == null)
+			{
+				alert("No next station!");
+				return false;
+			}
+			if($('#toStation').val() == "To")
+			{
+				alert("Please select destintion station!");
+				return false;
+			}
+			
+			/*
+			$('#fromto').on('submit', function(e)
+			{
+			    //prevent the default submithandling
+				e.preventDefault();
+				//send the data of 'this' (the matched form) to yourURL
+				$.post('home/getListOfBus',$(this).serialize());
+			});*/
+			$('#fromto').submit();
+		});
+	});
+	
+	/*
+	$(document).ready(function()
+	{
+	$("#fromStation").change(function(){
     
 	var fromStation = $(this).find(":selected").text();
 
-	
     $.ajax({
         url: 'home/populateToStations',
         data: ({'fromStation': fromStation}),
@@ -98,14 +177,15 @@
         type: "post",
         success: function(data)
 		{		
-				$("#to").empty();
+				$("#toStation").empty();
 				$.each(data, function () 
 				{	
-                	$("#to").append($("<option></option>").val(this['id']).html(this['route_station']));
+                	$("#toStation").append($("<option></option>").val(this['id']).html(this['route_station']));
+					
 				});
-             //alert(data[0].id); 
 		}             
     });
 	 return false;
     });
+	});*/	
 </script>
