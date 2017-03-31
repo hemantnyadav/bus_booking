@@ -27,7 +27,6 @@ class Home_model extends CI_Model {
 		}
 		
 		$toStations = array_map("unserialize", array_unique(array_map("serialize", $toStations_merge)));
-		//$toStations=array_unique($toStations_merge);
 		return $toStations;
 	}
 }
