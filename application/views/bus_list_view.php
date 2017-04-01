@@ -24,17 +24,19 @@
 							.lowerSeat
 							{
 								background-color:#FFFF99;
+								border: 1px solid #73AD21;
 							}
 							.upperSeat
 							{
 								background-color:#99FF33;
+								border: 1px solid #73AD21;
 							}
 						</style>
 						<span class="UpperLower upperSeat">U-Upper Seat</span>
 						
 						<span class="UpperLower lowerSeat">L-Lower Seat</span>
 						
-                        <table width="300"  height="500" border="1">
+                        <table width="300"  height="500">
 						<th>
 							<td class="seat" colspan="8" >
 								<span style="float:left; padding:10px;background-color:#999999;border-radius: 3px; border: 1px solid #73AD21;"> Entry</span>
