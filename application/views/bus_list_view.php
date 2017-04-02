@@ -3,7 +3,13 @@
 
 		<div class="row">
             <div class="box">
+			<?PHP
+				$attributes = array('name'=>'fromto','id'=>'fromto');
+				$hidden 	= array('is_submit'=>1);
+				echo form_open("/home/confirmTicket",$attributes, $hidden); 
+			?>
                 <div class="col-lg-12 text-center">
+				
                     <div class="col-lg-4 text-center">
 						
 						<style>
@@ -69,33 +75,29 @@
 									if(($j==2 || $j==3) && $i<5)
 										echo "<td>&nbsp;&nbsp;&nbsp;&nbsp;".$seatNumber[$i][$j]."</td>";
 									else
-										echo "<td class='seat ". $UpperLower[$i][$j]."'><input type='checkbox' value='".$seatNumber[$i][$j]."' /><br>".$seatNumber[$i][$j]."</td>";
+										echo "<td class='seat ". $UpperLower[$i][$j]."'><input type='checkbox' value='".$seatNumber[$i][$j]."' name='ticketNumbers[]' /><br>".$seatNumber[$i][$j]."</td>";
 								}
 								echo "</tr>";
 							}
 						?>
 						</table>
-						<input type="checkbox" value=""
+						
 					</div>
 				
 					<div class="col-lg-8 text-center">
-						<?PHP
-							$attributes = array('name'=>'fromto','id'=>'fromto');
-							$hidden 	= array('is_submit'=>1);
-							echo form_open("home/confirmTicket/",$attributes, $hidden); 
-						?>
+						
 							<div class="clearfix"><br /></div>
 							<div class="col-lg-3 text-center">
-								 From <input type="text" class="form-control" value="<?PHP echo $fromStation;  ?>" disabled="disabled" />
+								 From <input type="text" class="form-control" value="<?PHP echo $fromStation;  ?>" name="fromStation" readonly="readonly" />
 							</div>
 							<div class="col-lg-3 text-center">
-								To <input type="text" class="form-control" value="<?PHP echo $toStation;  ?>"  disabled="disabled">
+								To <input type="text" class="form-control" value="<?PHP echo $toStation;  ?>" name="toStation"  readonly="readonly">
 							</div>
 							<div class="col-lg-3 text-center">
-								Date <input type="text" class="form-control" value="<?PHP echo $date;  ?>" disabled="disabled" />
+								Date <input type="text" class="form-control" value="<?PHP echo $date;  ?>" name="date" readonly="readonly" />
 							</div>
 							<div class="col-lg-2 text-center">
-								Ac/NonAC<input type="text" class="form-control" value="<?PHP echo $busType;  ?>" disabled="disabled" />
+								Ac/NonAC<input type="text" class="form-control" value="<?PHP echo $busType;  ?>" name="busType" readonly="readonly" />
 							</div>
 							<div class="clearfix"></div>
 							<br /><br />
@@ -105,15 +107,15 @@
 										<label>Passenger Name*</label>
 									</div>
 									<div class="form-group col-lg-5">
-										<input type="text" class="form-control">
+										<input type="text" class="form-control" name="pName" id="pName">
 									</div>
 								</div>
 								<div class="row">
 									<div class="form-group col-lg-3">
-										<label>Contact Number</label>
+										<label>Contact Number*</label>
 									</div>
 									<div class="form-group col-lg-5">
-										<input type="text" class="form-control">
+										<input type="text" class="form-control" name="pContact" id="pContact">
 									</div>
 								</div>
 								<div class="row">
@@ -121,7 +123,7 @@
 										<label>Email ID</label>
 									</div>
 									<div class="form-group col-lg-5">
-										<input type="text" class="form-control">
+										<input type="text" class="form-control" name="pEmail">
 									</div>
 									</div>
 									<div class="clearfix"></div>
@@ -133,16 +135,40 @@
 									</div>
 									<div class="form-group col-lg-12">
 										<input type="hidden" name="save" value="contact">
-										<button type="submit" class="btn btn-default">Book Ticket</button>
+										<button type="button" class="btn btn-default" id="submit_button">Book Ticket</button>
 									</div>
 								</div>
-						<?PHP echo form_close(); ?>
+
 					</div>
 				</div>
+			<?PHP echo form_close(); ?>
             </div>
         </div>
     </div>
    
 	
-	
+<script>
+$(document).ready(function()
+	{
+	$("#submit_button").click(function()
+		{
+			if ($('input[type=checkbox]:checked').length == 0)
+			{
+				alert("Please select Seat");
+				return false;
+			}
+			if ($('#pName').val() == null || $('#pName').val() == "")
+			{
+				alert("Please enter Passenger Name");
+				return false;
+			}
+			if ($('#pContact').val() == null || $('#pContact').val() == "" || !$('#pContact').val().match('[0-9]{10,10}'))
+			{
+				alert("Please enter Valid contact number");
+				return false;
+			}
+			
+			$('#fromto').submit();
+		});
+	});
 </script>
