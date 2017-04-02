@@ -3,13 +3,13 @@
             <div class="box">
                 <div class="col-lg-12 text-center">
 					<h2 class="brand-before">
-						<small>Welcome to</small>
+						<small>Contact</small>
 						</h2>
-						<h1 class="brand-name">Online Booking Contact</h1>
+						<h1 class="brand-name">9828190471</h1>
 						<hr class="tagline-divider">
 						<h2>
-							<small>Book
-								<strong>to Ahmedabad</strong>
+							<small>Booking Service
+								<strong>24 X 7</strong>
 							</small>
 						</h2>
 					<div class="container">
